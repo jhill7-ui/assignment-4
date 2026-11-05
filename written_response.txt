@@ -1,0 +1,43 @@
+/*
+ * ===================== Part V - Short Questions =====================
+ *
+ * 1. Why does calculateStatistics() use pointer parameters for the
+ *    minimum, maximum, and average?
+ *
+ *    A C function can return only one value with a return statement, but
+ *    calculateStatistics() has to produce three results. By receiving the
+ *    addresses of the caller's variables, the function can store each
+ *    result directly into those variables with the dereference operator
+ *    (*minimum = ..., *maximum = ..., *average = ...). This lets one
+ *    function "return" several values, and it keeps printing in main().
+ *
+ * 2. What is the difference between passing an array to a function and
+ *    passing the address of an individual variable to a function?
+ *
+ *    When an array is passed, its name decays to a pointer to its first
+ *    element, so the function automatically receives an address and can
+ *    access (and, unless declared const, modify) every element. No & is
+ *    needed. An individual variable, however, is passed by value by
+ *    default, so to let a function change it the caller must explicitly
+ *    pass its address with &, and the function must use a pointer
+ *    parameter and dereference it with *. An array parameter gives access
+ *    to many elements; a pointer to a variable gives access to one value.
+ *
+ * 3. What would happen if calculateStatistics() received ordinary int and
+ *    double parameters instead of pointers?
+ *
+ *    The parameters would be local copies of the caller's variables. The
+ *    function would compute the minimum, maximum, and average into those
+ *    copies, but the copies are discarded when the function returns.
+ *    The variables in main() would be unchanged (and possibly
+ *    uninitialized), so main() would display incorrect or garbage values.
+ *
+ * 4. If two students have the same highest score, how does your function
+ *    ensure that the first occurrence is returned?
+ *
+ *    findHighestIndex() starts with index 0 as the highest and scans the
+ *    array from left to right, updating the index only when a score is
+ *    strictly greater (>) than the current highest. A later score that
+ *    only ties the highest does not satisfy ">", so the index of the
+ *    earlier (first) occurrence is kept.
+ */
